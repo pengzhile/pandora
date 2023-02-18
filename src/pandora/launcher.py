@@ -41,12 +41,13 @@ def main():
         help='Specify an access token file and login with your access token.',
         required=False,
         type=str,
-        default=None,
+        default=os.environ.get("chatgpt_access_token_file",None),
     )
     args, _ = parser.parse_known_args()
 
     token_file = args.token_file
     if token_file:
+        print(f"Read access token from file [{token_file}]")
         if not os.path.isfile(token_file):
             raise Exception('Error: {} is not a file.'.format(token_file))
 
